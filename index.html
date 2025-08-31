@@ -2,18 +2,32 @@
 <html lang="he" dir="rtl">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>INBAR SHIATSU</title>
     <style>
-      html,body,#root { height:100%; margin:0; }
-      body { background:#fafafa; color:#111; font-family: Heebo, Arial, sans-serif; }
-      .loading { display:flex; align-items:center; justify-content:center; height:100%; font-size:22px; }
-      noscript { display:block; padding:24px; background:#fff3cd; color:#664d03; border:1px solid #ffecb5; margin:12px; }
+      html,body,#root{height:100%;margin:0}
+      body{background:#fafafa;color:#111;font-family:Heebo,Arial,sans-serif}
+      .loading{display:flex;align-items:center;justify-content:center;height:100%;font-size:22px}
+      noscript{display:block;padding:24px;background:#fff3cd;color:#664d03;border:1px solid #ffecb5;margin:12px}
+      #error-overlay{position:fixed;inset:0;background:rgba(0,0,0,.75);color:#fff;padding:20px;z-index:9999;display:none;white-space:pre-wrap;overflow:auto}
     </style>
   </head>
   <body>
     <noscript>כדי לראות את האתר, יש לאפשר JavaScript.</noscript>
     <div id="root"><div class="loading">טוען…</div></div>
+    <div id="error-overlay"></div>
+    <script>
+      // מציג שכבת שגיאה על המסך אם יש תקלה בריצה
+      (function(){
+        const show = (msg) => {
+          const el = document.getElementById('error-overlay');
+          el.textContent = msg;
+          el.style.display = 'block';
+        };
+        window.addEventListener('error', e => show('[window.onerror]\\n' + (e?.error?.stack || e.message || e)));
+        window.addEventListener('unhandledrejection', e => show('[unhandledrejection]\\n' + (e?.reason?.stack || e?.reason || e)));
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
