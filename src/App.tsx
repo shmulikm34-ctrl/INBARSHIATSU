@@ -1,25 +1,25 @@
-import React from 'react'
-import { Routes, Route } from 'react-router-dom'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Home from './pages/Home'
-import Services from './pages/Services'
-import Contact from './pages/Contact'
-import NotFound from './pages/NotFound'
+import { Link, Routes, Route } from "react-router-dom";
+
+function Home(){ return <div><h1>בית</h1><p>ברוכים הבאים.</p></div>; }
+function Services(){ return <div><h1>שירותים</h1><p>שיאצו בקליניקה / בית לקוח.</p></div>; }
+function Contact(){ return <div><h1>צור קשר</h1><p>טלפון | וואטסאפ | טופס.</p></div>; }
 
 export default function App(){
   return (
-    <div>
-      <Header />
-      <main className="container" style={{padding:'20px 0 32px'}}>
+    <div style={{fontFamily:"Heebo, Arial", direction:"rtl"}}>
+      <nav style={{display:"flex",gap:16,padding:16,borderBottom:"1px solid #eee"}}>
+        <Link to="/">בית</Link>
+        <Link to="/services">שירותים</Link>
+        <Link to="/contact">צור קשר</Link>
+      </nav>
+      <main style={{padding:24}}>
         <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="/services" element={<Services/>} />
-          <Route path="/contact" element={<Contact/>} />
-          <Route path="*" element={<NotFound/>} />
+          <Route path="/" element={<Home/>}/>
+          <Route path="/services" element={<Services/>}/>
+          <Route path="/contact" element={<Contact/>}/>
+          <Route path="*" element={<Home/>}/>
         </Routes>
       </main>
-      <Footer />
     </div>
-  )
+  );
 }
